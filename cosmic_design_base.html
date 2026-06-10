@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@200;300;400&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:#B8AFA4;
+  display:flex;flex-direction:column;align-items:center;
+  padding:40px 20px;gap:60px;font-family:'DM Sans',sans-serif;
+}
+.lbl{font-weight:200;font-size:10px;letter-spacing:4px;color:#7A6A5A;
+  text-transform:uppercase;text-align:center;margin-bottom:8px;}
+
+/* ── SHARED ── */
+.eyebrow{font-weight:200;font-size:7.5px;letter-spacing:4px;color:#7A6050;
+  text-transform:uppercase;margin-bottom:5px;}
+.title{font-family:'Playfair Display',serif;font-weight:300;font-size:54px;
+  color:#1E1208;line-height:1.0;}
+.title em{font-style:italic;color:#6B47A0;}
+.hr{width:48px;height:0.5px;
+  background:linear-gradient(90deg,transparent,#8B5FBE,transparent);
+  margin:8px auto;}
+.sub{font-weight:200;font-size:7.5px;letter-spacing:3px;color:#6B5545;text-transform:uppercase;}
+
+/* ══ POST ══ */
+.post{
+  width:540px;height:675px;
+  position:relative;overflow:hidden;flex-shrink:0;
+}
+/* Full seamless background – lila + warm cream, no hard edges */
+.post-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 85% -10%, rgba(120,60,200,0.45) 0%, rgba(100,40,180,0.0) 44%),
+    radial-gradient(ellipse at -5% 95%,  rgba(120,60,200,0.30) 0%, rgba(100,40,180,0.0) 40%),
+    radial-gradient(ellipse at 50% 110%, rgba(196,168,130,0.50) 0%, transparent 50%),
+    radial-gradient(ellipse at 50%  30%, rgba(245,238,225,0.70) 0%, transparent 55%),
+    linear-gradient(162deg, #F2EAD8 0%, #EDE1CE 40%, #E6D5BC 100%);
+}
+
+/* Photos – absolutely positioned, centered */
+.photos{
+  position:absolute;bottom:0;left:60px;right:60px;
+  height:92%;z-index:4;
+  display:flex;align-items:flex-end;justify-content:center;
+}
+.ph{display:flex;align-items:flex-end;}
+.ph.kathi img{
+  height:560px;width:auto;
+  margin-right:-80px;z-index:5;position:relative;
+  clip-path:inset(0 0 55px 0);
+}
+.ph.tanja img{
+  height:520px;width:auto;
+  margin-left:-30px;z-index:4;position:relative;
+}
+
+/* Seamless bottom blend: match exact BG color */
+.blend-bot{
+  position:absolute;bottom:0;left:0;right:0;height:130px;z-index:6;
+  background:linear-gradient(to top,
+    rgba(237,225,206,1.0)   0%,
+    rgba(237,225,206,0.85) 30%,
+    rgba(237,225,206,0.50) 60%,
+    rgba(237,225,206,0.0) 100%);
+}
+/* Seamless side blends */
+.blend-left{
+  position:absolute;top:0;left:0;width:60px;height:100%;z-index:3;
+  background:linear-gradient(to right,
+    rgba(242,234,216,0.60) 0%, rgba(242,234,216,0.0) 100%);
+}
+.blend-right{
+  position:absolute;top:0;right:0;width:60px;height:100%;z-index:3;
+  background:linear-gradient(to left,
+    rgba(230,213,188,0.55) 0%, rgba(230,213,188,0.0) 100%);
+}
+
+/* ─── FIFTH ELEMENT STONES – center strip ─── */
+.stones{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:7;
+  display:flex;gap:7px;
+  align-items:center;
+}
+.stone{
+  width:20px;height:26px;
+  position:relative;
+  opacity:0.55;
+}
+
+/* top text */
+.top-text{
+  position:absolute;top:34px;left:40px;right:40px;
+  z-index:8;text-align:center;
+}
+.bot{
+  position:absolute;bottom:16px;left:30px;right:30px;
+  z-index:9;display:flex;justify-content:space-between;align-items:flex-end;
+}
+.date{font-family:'Playfair Display',serif;font-style:italic;
+  font-size:13px;color:#6B47A0;line-height:1.3;}
+.date small{display:block;font-style:normal;font-weight:200;font-size:7px;
+  letter-spacing:2.5px;color:#9B8070;text-transform:uppercase;}
+.names{text-align:right;font-weight:200;font-size:7px;
+  letter-spacing:2px;color:#8B7060;text-transform:uppercase;line-height:2;}
+
+/* wave lines deco */
+.wv{position:absolute;z-index:2;pointer-events:none;}
+
+/* ══ LANDING ══ */
+.landing{width:540px;background:#F5EFE6;overflow:hidden;}
+
+.hero{
+  position:relative;height:580px;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 85% -10%, rgba(120,60,200,0.42) 0%, transparent 44%),
+    radial-gradient(ellipse at -5% 95%,  rgba(120,60,200,0.28) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 110%, rgba(196,168,130,0.45) 0%, transparent 50%),
+    radial-gradient(ellipse at 50%  30%, rgba(245,238,225,0.65) 0%, transparent 55%),
+    linear-gradient(162deg,#F2EAD8 0%,#EDE1CE 40%,#E6D5BC 100%);
+}
+.hero-photos{
+  position:absolute;bottom:0;left:0;right:0;
+  display:flex;align-items:flex-end;justify-content:center;z-index:4;
+}
+.hero-photos .ph.kathi img{height:460px;margin-right:-25px;clip-path:inset(0 0 60px 0);}
+.hero-photos .ph.tanja img{height:445px;margin-left:-25px;}
+.hero-blend-bot{
+  position:absolute;bottom:0;left:0;right:0;height:140px;z-index:5;
+  background:linear-gradient(to top,
+    #F5EFE6 0%, rgba(245,239,230,0.9) 25%,
+    rgba(245,239,230,0.5) 60%, transparent 100%);
+}
+.hero-blend-left{
+  position:absolute;top:0;left:0;width:70px;height:100%;z-index:3;
+  background:linear-gradient(to right,rgba(242,234,216,0.55) 0%,transparent 100%);
+}
+.hero-blend-right{
+  position:absolute;top:0;right:0;width:70px;height:100%;z-index:3;
+  background:linear-gradient(to left,rgba(230,213,188,0.50) 0%,transparent 100%);
+}
+/* Stones in hero center */
+.hero-stones{
+  position:absolute;top:46%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:7;display:flex;gap:8px;align-items:center;
+}
+.hero-stone{width:22px;height:29px;position:relative;opacity:0.50;}
+
+.hero-content{
+  position:absolute;top:24px;left:0;right:0;
+  text-align:center;z-index:8;
+}
+.hero-content .title{font-size:64px;}
+
+/* sections */
+.sec{padding:34px 32px;}
+.sec.alt{background:#EEE6DA;}
+.s-title{font-family:'Playfair Display',serif;font-weight:300;
+  font-size:24px;color:#2E1F15;margin-bottom:4px;}
+.s-title em{font-style:italic;color:#6B47A0;}
+.s-hr{width:38px;height:0.5px;
+  background:linear-gradient(90deg,#8B5FBE,transparent);margin:7px 0 13px;}
+.body{font-weight:300;font-size:11.5px;color:#4A3828;line-height:1.78;}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px;}
+.pill{font-weight:200;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;
+  color:#6B47A0;border:0.5px solid #9B72CF;padding:5px 12px;border-radius:20px;
+  background:rgba(130,70,200,0.06);}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px;}
+.fi{background:#F5EFE6;border-radius:6px;padding:12px 13px;border-left:2px solid #9B72CF;}
+.fi p{font-weight:300;font-size:10.5px;color:#4A3828;line-height:1.55;}
+.igrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:#D8CEBC;margin-top:16px;border-radius:8px;overflow:hidden;}
+.ic{background:#F5EFE6;padding:13px;}
+.ic .l{font-weight:200;font-size:7.5px;letter-spacing:3px;text-transform:uppercase;
+  color:#9B8070;margin-bottom:3px;}
+.ic .v{font-family:'Playfair Display',serif;font-size:16px;color:#2E1F15;}
+.price-box{margin-top:18px;
+  background:linear-gradient(135deg,rgba(130,70,200,0.10) 0%,rgba(196,168,130,0.08) 100%);
+  border:0.5px solid #9B72CF;border-radius:8px;padding:18px 22px;
+  display:flex;align-items:center;justify-content:space-between;}
+.price-lbl{font-weight:200;font-size:8px;letter-spacing:3px;text-transform:uppercase;
+  color:#8B7060;margin-bottom:4px;}
+.price-amt{font-family:'Playfair Display',serif;font-size:44px;color:#6B47A0;font-weight:300;line-height:1;}
+.price-note{font-weight:200;font-size:8px;color:#9B8070;letter-spacing:1px;margin-top:3px;}
+.btn-register{display:block;width:100%;margin-top:14px;font-weight:300;font-size:9px;
+  letter-spacing:3.5px;text-transform:uppercase;color:#F5EFE6;
+  background:linear-gradient(135deg,#7B52B4 0%,#5E3A96 100%);
+  padding:16px 32px;border-radius:3px;text-align:center;cursor:pointer;border:none;
+  box-shadow:0 4px 22px rgba(100,60,160,0.32);}
+.hrow{display:flex;gap:14px;}
+.hcard{flex:1;position:relative;border-radius:10px;overflow:hidden;
+  background:radial-gradient(ellipse at 70% 0%,rgba(130,70,200,0.22) 0%,transparent 55%),
+    linear-gradient(160deg,#EDE3D4 0%,#E4D5C0 100%);
+  min-height:170px;display:flex;align-items:flex-end;}
+.hphoto{width:108px;flex-shrink:0;display:flex;align-items:flex-end;}
+.hphoto img{width:108px;height:auto;display:block;}
+.htext{padding:14px 12px 16px 8px;align-self:center;}
+.hname{font-family:'Playfair Display',serif;font-style:italic;font-size:16px;color:#2E1F15;line-height:1.2;}
+.hrole{font-weight:200;font-size:7px;letter-spacing:2px;text-transform:uppercase;color:#9B8070;margin-top:3px;}
+.hlink{font-weight:200;font-size:7px;letter-spacing:1px;color:#8B5FBE;margin-top:5px;display:block;}
+.cta{background:linear-gradient(160deg,#1A0F2E 0%,#281640 100%);
+  padding:46px 32px;text-align:center;position:relative;overflow:hidden;}
+.cta-g1{position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+  width:340px;height:220px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(130,70,200,0.40) 0%,transparent 70%);}
+.cta-g2{position:absolute;bottom:-40px;right:-20px;width:200px;height:160px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(196,168,130,0.16) 0%,transparent 70%);}
+.ct{font-family:'Playfair Display',serif;font-weight:300;font-style:italic;
+  font-size:30px;color:#F5EFE6;line-height:1.25;margin-bottom:6px;}
+.cs{font-weight:200;font-size:8.5px;letter-spacing:3px;text-transform:uppercase;
+  color:#C4A882;margin-bottom:18px;}
+.cta-price{font-family:'Playfair Display',serif;font-size:48px;color:#B898E0;
+  line-height:1;margin-bottom:20px;}
+.cta-price small{font-weight:200;font-size:11px;letter-spacing:2px;color:#8B70B8;
+  vertical-align:middle;margin-left:5px;}
+.btn-cta{display:inline-block;font-weight:300;font-size:9px;letter-spacing:3.5px;
+  text-transform:uppercase;color:#1A0F2E;
+  background:linear-gradient(135deg,#C4A0FF 0%,#E8CBAA 100%);
+  padding:15px 40px;border-radius:3px;cursor:pointer;
+  box-shadow:0 6px 28px rgba(130,70,200,0.45);}
+.foot{background:#1A0F2E;padding:16px 32px;
+  display:flex;justify-content:space-between;align-items:center;}
+.foot span{font-weight:200;font-size:7px;letter-spacing:2.5px;
+  color:#7B6090;text-transform:uppercase;}
+.foot .logo{font-family:'Playfair Display',serif;font-style:italic;
+  font-size:15px;color:#C4A882;}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ POST ════════════════════ -->
+<div class="lbl">Instagram Post · 1080 × 1080 px</div>
+<div class="post">
+  <div class="post-bg"></div>
+  <\!-- HD Bodygraph Background -->
+  <div style="position:absolute;top:50%;left:22%;transform:translate(-50%,-50%);z-index:1;opacity:0.07;pointer-events:none;">
+    <svg width="160" height="210" viewBox="0 0 160 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <\!-- Head -->
+      <polygon points="80,8 60,38 100,38" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Ajna -->
+      <polygon points="80,44 62,68 98,68" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Throat -->
+      <rect x="66" y="74" width="28" height="20" rx="3" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- G Center -->
+      <rect x="62" y="100" width="36" height="30" rx="4" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Heart -->
+      <polygon points="52,100 38,115 52,130 66,115" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Spleen -->
+      <polygon points="28,118 14,136 28,154 42,136" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Sacral -->
+      <rect x="60" y="138" width="40" height="30" rx="4" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Root -->
+      <rect x="62" y="176" width="36" height="24" rx="4" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Solar Plexus -->
+      <polygon points="108,118 122,136 108,154 94,136" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Will -->
+      <polygon points="112,96 126,110 112,124 98,110" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Channels: Head-Ajna -->
+      <line x1="80" y1="38" x2="80" y2="44" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- Ajna-Throat -->
+      <line x1="80" y1="68" x2="80" y2="74" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- Throat-G -->
+      <line x1="80" y1="94" x2="80" y2="100" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- G-Sacral -->
+      <line x1="80" y1="130" x2="80" y2="138" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- Sacral-Root -->
+      <line x1="80" y1="168" x2="80" y2="176" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- Heart-Throat -->
+      <line x1="60" y1="108" x2="66" y2="84" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- Spleen-Sacral -->
+      <line x1="42" y1="136" x2="60" y2="150" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- SolarPlexus-Sacral -->
+      <line x1="94" y1="136" x2="100" y2="150" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- Will-Throat -->
+      <line x1="112" y1="96" x2="94" y2="84" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- G-Will -->
+      <line x1="98" y1="115" x2="98" y2="110" stroke="#5B3A8A" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <\!-- Astro Birthchart Background -->
+  <div style="position:absolute;top:50%;left:78%;transform:translate(-50%,-50%);z-index:1;opacity:0.07;pointer-events:none;">
+    <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <\!-- Outer ring -->
+      <circle cx="80" cy="80" r="76" stroke="#5B3A8A" stroke-width="1.2"/>
+      <\!-- Middle ring (house ring) -->
+      <circle cx="80" cy="80" r="60" stroke="#5B3A8A" stroke-width="0.8"/>
+      <\!-- Inner ring -->
+      <circle cx="80" cy="80" r="38" stroke="#5B3A8A" stroke-width="0.8"/>
+      <\!-- Center circle -->
+      <circle cx="80" cy="80" r="8" stroke="#5B3A8A" stroke-width="0.8"/>
+      <\!-- 12 house lines (every 30°) -->
+      <line x1="80" y1="4" x2="80" y2="42" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="118" y1="13" x2="100" y2="46" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="147" y1="42" x2="121" y2="60" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="156" y1="80" x2="118" y2="80" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="147" y1="118" x2="121" y2="100" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="118" y1="147" x2="100" y2="114" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="80" y1="156" x2="80" y2="118" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="42" y1="147" x2="60" y2="114" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="13" y1="118" x2="39" y2="100" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="4" y1="80" x2="42" y2="80" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="13" y1="42" x2="39" y2="60" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="42" y1="13" x2="60" y2="46" stroke="#5B3A8A" stroke-width="0.8"/>
+      <\!-- Cross (ASC/DSC/MC/IC) -->
+      <line x1="4" y1="80" x2="156" y2="80" stroke="#8B5FBE" stroke-width="1.2"/>
+      <line x1="80" y1="4" x2="80" y2="156" stroke="#8B5FBE" stroke-width="1.2"/>
+      <\!-- A few planet glyphs as dots with tiny circles -->
+      <circle cx="80" cy="20" r="2" fill="#5B3A8A"/>
+      <circle cx="118" cy="32" r="2" fill="#5B3A8A"/>
+      <circle cx="140" cy="62" r="2" fill="#5B3A8A"/>
+      <circle cx="130" cy="100" r="2" fill="#5B3A8A"/>
+      <circle cx="56" cy="140" r="2" fill="#5B3A8A"/>
+      <circle cx="24" cy="100" r="2" fill="#5B3A8A"/>
+      <circle cx="36" cy="54" r="2" fill="#5B3A8A"/>
+    </svg>
+  </div>
+
+  <div class="blend-left"></div>
+  <div class="blend-right"></div>
+
+  <!-- Subtle wave lines -->
+  <svg class="wv" style="top:10px;left:8px;" width="88" height="28" viewBox="0 0 88 28">
+    <path d="M0,14 C14,3 28,25 44,14 C58,3 74,25 88,14" fill="none" stroke="#8B5FBE" stroke-width="0.8" opacity="0.28"/>
+    <path d="M0,20 C14,9 28,31 44,20 C58,9 74,31 88,20" fill="none" stroke="#7040AE" stroke-width="0.55" opacity="0.18"/>
+    <path d="M0,8 C14,-3 28,19 44,8 C58,-3 74,19 88,8" fill="none" stroke="#C4A882" stroke-width="0.5" opacity="0.16"/>
+  </svg>
+  <svg class="wv" style="bottom:10px;right:8px;transform:rotate(180deg);" width="76" height="24" viewBox="0 0 76 24">
+    <path d="M0,12 C12,1 25,23 38,12 C51,1 64,23 76,12" fill="none" stroke="#8B5FBE" stroke-width="0.75" opacity="0.24"/>
+    <path d="M0,18 C12,7 25,29 38,18 C51,7 64,29 76,18" fill="none" stroke="#C4A882" stroke-width="0.5" opacity="0.15"/>
+  </svg>
+  <svg class="wv" style="left:6px;top:40%;transform:translateY(-50%);" width="13" height="105" viewBox="0 0 13 105">
+    <path d="M6.5,0 C0,17 13,34 6.5,52.5 C0,71 13,88 6.5,105" fill="none" stroke="#8B5FBE" stroke-width="0.65" opacity="0.19"/>
+  </svg>
+  <svg class="wv" style="right:6px;top:34%;transform:translateY(-50%);" width="13" height="92" viewBox="0 0 13 92">
+    <path d="M6.5,0 C0,15 13,31 6.5,46 C0,61 13,77 6.5,92" fill="none" stroke="#C4A882" stroke-width="0.6" opacity="0.16"/>
+  </svg>
+
+
+    <!-- ELEMENT ZEICHEN – exakt zentriert, 2x2 -->
+    <div style="
+      position:absolute;
+      top:62%; left:50%;
+      transform:translate(-50%,-50%);
+      z-index:7;
+      display:grid;
+      grid-template-columns:44px 44px;
+      grid-template-rows:44px 44px;
+      gap:4px;
+      opacity:0.28;
+    ">
+
+      <!-- oben links: vertikale S-Kurven (Wind) -->
+      <svg width="44" height="44" viewBox="0 0 64 64" fill="none">
+        <path d="M8,2  C4,14 12,24 8,36  C4,48  8,62  8,62"  stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <path d="M18,2 C14,14 22,24 18,36 C14,48 18,62 18,62" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <path d="M28,2 C24,14 32,24 28,36 C24,48 28,62 28,62" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <path d="M38,2 C34,14 42,24 38,36 C34,48 38,62 38,62" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <path d="M48,2 C44,14 52,24 48,36 C44,48 48,62 48,62" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <path d="M58,2 C54,14 62,24 58,36 C54,48 58,62 58,62" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+
+      <!-- oben rechts: horizontale Wellenlinien (Wasser) -->
+      <svg width="44" height="44" viewBox="0 0 64 64" fill="none">
+        <path d="M2,10 C14,6  26,14 38,10 C50,6  58,10 62,10" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M2,20 C14,16 26,24 38,20 C50,16 58,20 62,20" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M2,30 C14,26 26,34 38,30 C50,26 58,30 62,30" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M2,40 C14,36 26,44 38,40 C50,36 58,40 62,40" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M2,50 C14,46 26,54 38,50 C50,46 58,50 62,50" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+      </svg>
+
+      <!-- unten links: breite geschwungene Wellen (Feuer) -->
+      <svg width="44" height="44" viewBox="0 0 64 64" fill="none">
+        <path d="M2,14 C18,4  36,24 54,14 C58,12 61,13 62,14" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M2,26 C18,16 36,36 54,26 C58,24 61,25 62,26" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M2,38 C18,28 36,48 54,38 C58,36 61,37 62,38" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M2,50 C18,40 36,60 54,50 C58,48 61,49 62,50" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+      </svg>
+
+      <!-- unten rechts: gerade horizontale Linien (Erde) -->
+      <svg width="44" height="44" viewBox="0 0 64 64" fill="none">
+        <line x1="2" y1="10" x2="62" y2="10" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <line x1="2" y1="20" x2="62" y2="20" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <line x1="2" y1="30" x2="62" y2="30" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <line x1="2" y1="40" x2="62" y2="40" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <line x1="2" y1="50" x2="62" y2="50" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+
+    </div>
+    <!-- END ELEMENT ZEICHEN -->
+
+  <!-- Photos -->
+  <div class="photos">
+    <div class="ph kathi"><img src="image_01.png" alt="Kathi"></div>
+    <div class="ph tanja"><img src="image_02.png" alt="Tanja"></div>
+  </div>
+  <div class="blend-bot"></div>
+
+  <!-- Top text -->
+  <div class="top-text">
+    <div class="eyebrow" style="font-size:9px;letter-spacing:3px;color:#5B3A8A;opacity:1;font-weight:400;">30. Juni · Online Workshop</div>
+    <div class="title">Cosmic Design<br><em style="color:#6B47A0;">Elements</em></div>
+    <div class="hr"></div>
+    <!-- Eye Catcher Claim -->
+    <div style="
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:12px;
+      color:#3A2060;
+      letter-spacing:0.3px;
+      line-height:1.5;
+      margin-top:2px;
+      opacity:0.85;
+    ">2 Stunden.<br>Deine Antworten.<br><em style="font-style:italic;color:#6B47A0;font-size:1.1em;">Komm in dein Element</em></div>
+  </div>
+
+  <!-- Eye Catcher: leuchtender Ring um die Zeichen -->
+  <div style="
+    position:absolute;
+    top:62%; left:50%;
+    transform:translate(-50%,-50%);
+    width:116px; height:116px;
+    border-radius:50%;
+    background:radial-gradient(ellipse, rgba(130,70,200,0.18) 0%, transparent 70%);
+    z-index:6;
+    pointer-events:none;
+  "></div>
+
+  <div class="bot">
+    <div class="date"><small>Datum</small>30. Juni 2026</div>
+    <div class="names" style="text-align:left;">Tanja Frewein<br>Kathi von Soulmap</div>
+  </div>
+</div>
+
+<!-- ════════════════════ LANDING ════════════════════ -->
+<div class="lbl">Landing Page</div>
+<div class="landing">
+
+  <div class="hero">
+    <div class="hero-bg"></div>
+  <\!-- HD Bodygraph Background -->
+  <div style="position:absolute;top:50%;left:22%;transform:translate(-50%,-50%);z-index:1;opacity:0.06;pointer-events:none;">
+    <svg width="160" height="210" viewBox="0 0 160 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <\!-- Head -->
+      <polygon points="80,8 60,38 100,38" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Ajna -->
+      <polygon points="80,44 62,68 98,68" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Throat -->
+      <rect x="66" y="74" width="28" height="20" rx="3" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- G Center -->
+      <rect x="62" y="100" width="36" height="30" rx="4" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Heart -->
+      <polygon points="52,100 38,115 52,130 66,115" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Spleen -->
+      <polygon points="28,118 14,136 28,154 42,136" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Sacral -->
+      <rect x="60" y="138" width="40" height="30" rx="4" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Root -->
+      <rect x="62" y="176" width="36" height="24" rx="4" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Solar Plexus -->
+      <polygon points="108,118 122,136 108,154 94,136" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Will -->
+      <polygon points="112,96 126,110 112,124 98,110" stroke="#5B3A8A" stroke-width="1.5" fill="none"/>
+      <\!-- Channels: Head-Ajna -->
+      <line x1="80" y1="38" x2="80" y2="44" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- Ajna-Throat -->
+      <line x1="80" y1="68" x2="80" y2="74" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- Throat-G -->
+      <line x1="80" y1="94" x2="80" y2="100" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- G-Sacral -->
+      <line x1="80" y1="130" x2="80" y2="138" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- Sacral-Root -->
+      <line x1="80" y1="168" x2="80" y2="176" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- Heart-Throat -->
+      <line x1="60" y1="108" x2="66" y2="84" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- Spleen-Sacral -->
+      <line x1="42" y1="136" x2="60" y2="150" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- SolarPlexus-Sacral -->
+      <line x1="94" y1="136" x2="100" y2="150" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- Will-Throat -->
+      <line x1="112" y1="96" x2="94" y2="84" stroke="#5B3A8A" stroke-width="1"/>
+      <\!-- G-Will -->
+      <line x1="98" y1="115" x2="98" y2="110" stroke="#5B3A8A" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <\!-- Astro Birthchart Background -->
+  <div style="position:absolute;top:50%;left:78%;transform:translate(-50%,-50%);z-index:1;opacity:0.06;pointer-events:none;">
+    <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <\!-- Outer ring -->
+      <circle cx="80" cy="80" r="76" stroke="#5B3A8A" stroke-width="1.2"/>
+      <\!-- Middle ring (house ring) -->
+      <circle cx="80" cy="80" r="60" stroke="#5B3A8A" stroke-width="0.8"/>
+      <\!-- Inner ring -->
+      <circle cx="80" cy="80" r="38" stroke="#5B3A8A" stroke-width="0.8"/>
+      <\!-- Center circle -->
+      <circle cx="80" cy="80" r="8" stroke="#5B3A8A" stroke-width="0.8"/>
+      <\!-- 12 house lines (every 30°) -->
+      <line x1="80" y1="4" x2="80" y2="42" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="118" y1="13" x2="100" y2="46" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="147" y1="42" x2="121" y2="60" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="156" y1="80" x2="118" y2="80" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="147" y1="118" x2="121" y2="100" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="118" y1="147" x2="100" y2="114" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="80" y1="156" x2="80" y2="118" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="42" y1="147" x2="60" y2="114" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="13" y1="118" x2="39" y2="100" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="4" y1="80" x2="42" y2="80" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="13" y1="42" x2="39" y2="60" stroke="#5B3A8A" stroke-width="0.8"/>
+      <line x1="42" y1="13" x2="60" y2="46" stroke="#5B3A8A" stroke-width="0.8"/>
+      <\!-- Cross (ASC/DSC/MC/IC) -->
+      <line x1="4" y1="80" x2="156" y2="80" stroke="#8B5FBE" stroke-width="1.2"/>
+      <line x1="80" y1="4" x2="80" y2="156" stroke="#8B5FBE" stroke-width="1.2"/>
+      <\!-- A few planet glyphs as dots with tiny circles -->
+      <circle cx="80" cy="20" r="2" fill="#5B3A8A"/>
+      <circle cx="118" cy="32" r="2" fill="#5B3A8A"/>
+      <circle cx="140" cy="62" r="2" fill="#5B3A8A"/>
+      <circle cx="130" cy="100" r="2" fill="#5B3A8A"/>
+      <circle cx="56" cy="140" r="2" fill="#5B3A8A"/>
+      <circle cx="24" cy="100" r="2" fill="#5B3A8A"/>
+      <circle cx="36" cy="54" r="2" fill="#5B3A8A"/>
+    </svg>
+  </div>
+
+    <div class="hero-blend-left"></div>
+    <div class="hero-blend-right"></div>
+
+    <!-- Waves -->
+    <svg style="position:absolute;top:9px;left:9px;z-index:2;" width="96" height="30" viewBox="0 0 96 30">
+      <path d="M0,15 C16,3 32,27 48,15 C64,3 80,27 96,15" fill="none" stroke="#8B5FBE" stroke-width="0.85" opacity="0.24"/>
+      <path d="M0,22 C16,10 32,34 48,22 C64,10 80,34 96,22" fill="none" stroke="#C4A882" stroke-width="0.5" opacity="0.15"/>
+    </svg>
+
+    <div class="hero-content">
+      <div class="eyebrow" style="font-size:9px;letter-spacing:3px;color:#5B3A8A;opacity:1;font-weight:400;">Online Workshop · 30. Juni 2026 · 18 Uhr</div>
+      <div class="title">Cosmic Design<br><em style="color:#6B47A0;">Elements</em></div>
+      <div class="hr"></div>
+      <div style="
+        font-family:'Playfair Display',serif;
+        font-style:italic;
+        font-size:13.5px;
+        color:#3A2060;
+        letter-spacing:0.3px;
+        line-height:1.6;
+        opacity:0.85;
+        margin-top:1px;
+      ">2 Stunden.<br>Deine Antworten.<br><em style="font-style:italic;color:#6B47A0;font-size:1.1em;">Komm in dein Element</em></div>
+    </div>
+
+    <!-- ELEMENT ZEICHEN – exakt zentriert, 2x2 -->
+    <div style="
+      position:absolute;
+      top:58%; left:50%;
+      transform:translate(-50%,-50%);
+      z-index:7;
+      display:grid;
+      grid-template-columns:44px 44px;
+      grid-template-rows:44px 44px;
+      gap:4px;
+      opacity:0.28;
+    ">
+
+      <!-- oben links: vertikale S-Kurven (Wind) -->
+      <svg width="44" height="44" viewBox="0 0 64 64" fill="none">
+        <path d="M8,2  C4,14 12,24 8,36  C4,48  8,62  8,62"  stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <path d="M18,2 C14,14 22,24 18,36 C14,48 18,62 18,62" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <path d="M28,2 C24,14 32,24 28,36 C24,48 28,62 28,62" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <path d="M38,2 C34,14 42,24 38,36 C34,48 38,62 38,62" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <path d="M48,2 C44,14 52,24 48,36 C44,48 48,62 48,62" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <path d="M58,2 C54,14 62,24 58,36 C54,48 58,62 58,62" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+
+      <!-- oben rechts: horizontale Wellenlinien (Wasser) -->
+      <svg width="44" height="44" viewBox="0 0 64 64" fill="none">
+        <path d="M2,10 C14,6  26,14 38,10 C50,6  58,10 62,10" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M2,20 C14,16 26,24 38,20 C50,16 58,20 62,20" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M2,30 C14,26 26,34 38,30 C50,26 58,30 62,30" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M2,40 C14,36 26,44 38,40 C50,36 58,40 62,40" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M2,50 C14,46 26,54 38,50 C50,46 58,50 62,50" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+      </svg>
+
+      <!-- unten links: breite geschwungene Wellen (Feuer) -->
+      <svg width="44" height="44" viewBox="0 0 64 64" fill="none">
+        <path d="M2,14 C18,4  36,24 54,14 C58,12 61,13 62,14" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M2,26 C18,16 36,36 54,26 C58,24 61,25 62,26" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M2,38 C18,28 36,48 54,38 C58,36 61,37 62,38" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M2,50 C18,40 36,60 54,50 C58,48 61,49 62,50" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round" fill="none"/>
+      </svg>
+
+      <!-- unten rechts: gerade horizontale Linien (Erde) -->
+      <svg width="44" height="44" viewBox="0 0 64 64" fill="none">
+        <line x1="2" y1="10" x2="62" y2="10" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <line x1="2" y1="20" x2="62" y2="20" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <line x1="2" y1="30" x2="62" y2="30" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <line x1="2" y1="40" x2="62" y2="40" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+        <line x1="2" y1="50" x2="62" y2="50" stroke="#5B3A8A" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+
+    </div>
+    <!-- END ELEMENT ZEICHEN -->
+
+    <div class="hero-photos">
+      <div class="ph kathi"><img src="image_01.png" alt="Kathi"></div>
+      <div class="ph tanja"><img src="image_02.png" alt="Tanja"></div>
+    </div>
+    <div class="hero-blend-bot"></div>
+  </div>
+
+  <div class="sec alt">
+    <div class="s-title">Was auf dich <em>wartet</em></div>
+    <div class="s-hr"></div>
+    <p class="body" style="margin-bottom:16px;">Ein Live-Webinar – persönlich, direkt und interaktiv. Und das Beste: Du verpasst nichts, denn alle Teilnehmer erhalten im Anschluss die vollständige Aufzeichnung.</p>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,rgba(130,70,200,0.15),rgba(130,70,200,0.05));border:0.5px solid #9B72CF;display:flex;align-items:center;justify-content:center;font-size:12px;color:#6B47A0;">✦</div>
+        <div><div style="font-family:'Playfair Display',serif;font-size:13px;color:#2E1F15;font-weight:300;margin-bottom:2px;">Live Webinar + Aufzeichnung</div><div class="body" style="font-size:10.5px;">Du bist live dabei – und erhältst danach die vollständige Aufzeichnung, damit du alles in Ruhe nochmals ansehen kannst.</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,rgba(130,70,200,0.15),rgba(130,70,200,0.05));border:0.5px solid #9B72CF;display:flex;align-items:center;justify-content:center;font-size:12px;color:#6B47A0;">✦</div>
+        <div><div style="font-family:'Playfair Display',serif;font-size:13px;color:#2E1F15;font-weight:300;margin-bottom:2px;">Workshopunterlagen vorab</div><div class="body" style="font-size:10.5px;">Du erhältst deine Seminarunterlagen bereits im Vorfeld – damit du bestens vorbereitet und schon eingestimmt in den Workshop gehst.</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,rgba(130,70,200,0.15),rgba(130,70,200,0.05));border:0.5px solid #9B72CF;display:flex;align-items:center;justify-content:center;font-size:12px;color:#6B47A0;">✦</div>
+        <div><div style="font-family:'Playfair Display',serif;font-size:13px;color:#2E1F15;font-weight:300;margin-bottom:2px;">Einstimmungs-Session</div><div class="body" style="font-size:10.5px;">Bevor es losgeht, nehmen wir uns Zeit, um wirklich anzukommen – eine geführte Session, die dich in die Themen eintaucht und Raum für das Wesentliche schafft.</div></div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,rgba(130,70,200,0.15),rgba(130,70,200,0.05));border:0.5px solid #9B72CF;display:flex;align-items:center;justify-content:center;font-size:12px;color:#6B47A0;">✦</div>
+        <div><div style="font-family:'Playfair Display',serif;font-size:13px;color:#2E1F15;font-weight:300;margin-bottom:2px;">Persönliche SoulMap von Soulmap <span style="font-size:9px;letter-spacing:2px;color:#9B72CF;text-transform:uppercase;">inklusive</span></div><div class="body" style="font-size:10.5px;">Jede Teilnehmerin erhält im Anschluss ihre individuelle SoulMap – eine tiefgehende Lebensweganalyse von Soulmap, die dir zeigt, wer du bist und was in dir angelegt ist. Im Preis inbegriffen.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="s-title">What's <em>about?</em></div>
+    <div class="s-hr"></div>
+    <!-- Eye Catcher Statement -->
+    <div style="
+      font-family:'Playfair Display',serif;
+      font-size:19px;
+      font-style:italic;
+      color:#5B3A8A;
+      line-height:1.5;
+      margin-bottom:14px;
+      border-left:2px solid #9B72CF;
+      padding-left:14px;
+    ">„Was wäre, wenn dein Geburtshart und dein Human Design Chart gemeinsam das vollständigste Bild von dir zeichnen?"</div>
+
+    <p class="body">Astrologie und Human Design – zwei kraftvolle Systeme, ein gemeinsamer Ausgangspunkt. In diesem Workshop bekommst du Einblick in die elementarsten Grundlagen beider Welten: Was verrät dein Geburtshoroskop? Was sagt dein Human Design Chart über dich? Und warum ist genau diese Kombination so besonders kraftvoll. Komm in dein Element.</p>
+    <div class="pills">
+      <div class="pill">Astrologie Basics</div><div class="pill">Human Design</div>
+      <div class="pill">Typen &amp; Strategien</div><div class="pill">Charts lesen</div>
+      <div class="pill">Praktische Übungen</div>
+    </div>
+  </div>
+
+  <div class="sec alt">
+    <div class="s-title">Für <em>wen</em> ist das?</div>
+    <div class="s-hr"></div>
+    <div class="fgrid">
+      <div class="fi"><p>Du bist neugierig auf Astrologie oder Human Design – ganz egal, ob du schon mal reingeschaut hast oder noch nie.</p></div>
+      <div class="fi"><p>Du hast schon oft überlegt anzufangen, wusstest aber nicht, wo. Hier ist dein Einstieg.</p></div>
+      <div class="fi"><p>Du möchtest in beide Deutungssysteme reinschnuppern – ohne dich festlegen zu müssen.</p></div>
+      <div class="fi"><p>Kein Vorwissen nötig. Nur Interesse – und die Lust, dich selbst ein bisschen besser kennenzulernen.</p></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="s-title">Workshop <em>Details</em></div>
+    <div class="s-hr"></div>
+    <div class="igrid">
+      <div class="ic"><div class="l">Datum</div><div class="v">30. Juni 2026</div></div>
+      <div class="ic"><div class="l">Uhrzeit</div><div class="v">18:00 Uhr</div></div>
+      <div class="ic"><div class="l">Format</div><div class="v">Online · Live</div></div>
+      <div class="ic"><div class="l">Thema</div><div class="v">Cosmic Design Elements</div></div>
+      <div class="ic"><div class="l">Aufzeichnung</div><div class="v">Inbegriffen</div></div>
+      <div class="ic"><div class="l">Level</div><div class="v">Beginner friendly</div></div>
+    </div>
+    <div class="price-box">
+      <div>
+        <div class="price-lbl">Investment</div>
+        <div class="price-amt">€ 79,–</div>
+        <div class="price-note">inkl. Workshopmaterial</div>
+        <div style="font-family:'DM Sans',sans-serif;font-weight:200;font-size:7.5px;
+          color:#9B72CF;letter-spacing:1px;margin-top:5px;">
+          Dein Geburtshart + dein Human Design Chart.<br>
+          Endlich als Gesamtbild.
+        </div>
+      </div>
+      <svg width="52" height="52" viewBox="0 0 38 38" fill="none" opacity="0.20">
+        <circle cx="19" cy="19" r="17" stroke="#6B47A0" stroke-width="0.9"/>
+        <circle cx="19" cy="19" r="11" stroke="#6B47A0" stroke-width="0.7"/>
+        <circle cx="19" cy="19" r="5"  stroke="#6B47A0" stroke-width="0.7"/>
+        <line x1="19" y1="2"  x2="19" y2="8"  stroke="#6B47A0" stroke-width="0.8"/>
+        <line x1="19" y1="30" x2="19" y2="36" stroke="#6B47A0" stroke-width="0.8"/>
+        <line x1="2"  y1="19" x2="8"  y2="19" stroke="#6B47A0" stroke-width="0.8"/>
+        <line x1="30" y1="19" x2="36" y2="19" stroke="#6B47A0" stroke-width="0.8"/>
+      </svg>
+    </div>
+    <button class="btn-register">Jetzt anmelden &nbsp;→</button>
+  </div>
+
+  <div class="sec alt">
+    <div class="s-title">Eure <em>Hosts</em></div>
+    <div class="s-hr"></div>
+    <div class="hrow">
+      <div class="hcard">
+        <div class="hphoto"><img src="image_01.png" alt="Kathi"></div>
+        <div class="htext">
+          <div class="hname">Kathi von Soulmap</div>
+          <div class="hrole">Astrologin &amp; Gründerin von Soulmap</div>
+          <p style="font-weight:300;font-size:10px;color:#4A3828;line-height:1.65;margin-top:7px;">
+            Kathi ist Astrologin, Juristin und Gründerin von Soulmap – einer modernen Plattform für Selbsterkenntnis rund um Beruf und Berufung. Mit psychologischem Feingefühl und einem klaren Blick hilft sie Menschen, ihren inneren Nordstern zu finden. Seit 2025 auch ausgebildet in Human Design.
+          </p>
+          <a class="hlink" href="https://www.soulmap.at">soulmap.at</a>
+        </div>
+      </div>
+      <div class="hcard">
+        <div class="hphoto"><img src="image_02.png" alt="Tanja"></div>
+        <div class="htext">
+          <div class="hname">Tanja Frewein</div>
+          <div class="hrole">Holistic Human Design &amp; Breathwork Mentorin</div>
+          <p style="font-weight:300;font-size:10px;color:#4A3828;line-height:1.65;margin-top:7px;">
+            Tanja ist Mentorin für Human Design &amp; Breathwork sowie diplomierte Mentaltrainerin. Sie begleitet Frauen dabei, ihr volles Potenzial zu leben – durch tiefes Verstehen der eigenen Energie, authentisches Sein und innere Balance. Ihr Motto: breathwork for the body, human design for the soul.
+          </p>
+          <a class="hlink" href="https://www.tanjafrewein.com">tanjafrewein.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div class="cta-g1"></div><div class="cta-g2"></div>
+    <svg style="position:absolute;top:16px;left:22px;opacity:0.16;" width="80" height="26" viewBox="0 0 80 26">
+      <path d="M0,13 C13,2 26,24 40,13 C53,2 66,24 80,13" fill="none" stroke="#C4A882" stroke-width="0.8"/>
+    </svg>
+    <div style="font-family:'DM Sans',sans-serif;font-weight:200;font-size:8px;
+      letter-spacing:3px;text-transform:uppercase;color:#9B7EC8;margin-bottom:10px;">
+      30. Juni · Online · Live
+    </div>
+    <div class="ct">Zwei Systeme.<br>Ein vollständiges Bild von dir.</div>
+    <div class="cs">Astrologie &amp; Human Design · Eine Symbiose.</div>
+    <div class="cta-price">€ 79<small>EUR</small></div>
+    <div class="btn-cta">Jetzt anmelden &nbsp;→</div>
+  </div>
+
+  <div class="foot">
+    <span>Cosmic Design Elements · 30.06.2025</span>
+    <div class="logo">Kathi von Soulmap &amp; Tanja Frewein</div>
+    <span>soulmap.at</span>
+  </div>
+</div>
+</body>
+</html
+  <div style="
+    position:absolute;
+    top:54%;left:50%;
+    transform:translate(-50%,-50%);
+    z-index:8;
+    text-align:center;
+    font-family:'DM Sans',sans-serif;
+    font-weight:200;
+    font-size:6.5px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:#6B47A0;
+    opacity:0.70;
+    white-space:nowrap;
+  ">Astrologie meets Human Design</div>
+>
