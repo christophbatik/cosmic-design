@@ -261,9 +261,13 @@ body{
   font-size:21px;color:#C4A882;}
 
 @media (max-width: 768px) {
-  .hero { height: auto; min-height: 480px; }
-  .hero-content { top: 20px; }
+  .hero { height: auto; min-height: unset; display: flex; flex-direction: column; }
+  .hero-content { position: relative; top: auto; left: auto; right: auto; padding: 32px 22px 16px; }
   .hero-content .title { font-size: 44px; }
+  .hero-photos { position: relative; bottom: auto; left: auto; right: auto; }
+  .hero-photos .ph.kathi img { height: 240px; margin-right: -18px; clip-path: inset(0 0 30px 0); }
+  .hero-photos .ph.tanja img { height: 220px; margin-left: -18px; }
+  .hero-blend-bot { height: 60px; }
   .title { font-size: 40px; }
   .eyebrow { font-size: 12px; letter-spacing: 3px; }
   .sec { padding: 36px 22px; }
