@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@200;300;400&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -197,13 +198,15 @@ body{
   padding:18px 32px;border-radius:3px;text-align:center;cursor:pointer;border:none;
   box-shadow:0 4px 22px rgba(100,60,160,0.32);}
 .hrow{display:flex;gap:14px;}
-.hcard{flex:1;position:relative;border-radius:10px;overflow:hidden;
-  background:radial-gradient(ellipse at 70% 0%,rgba(130,70,200,0.22) 0%,transparent 55%),
+.hcard{flex:1;position:relative;border-radius:10px;
+  background:radial-gradient(ellipse at 50% 0%,rgba(130,70,200,0.18) 0%,transparent 55%),
     linear-gradient(160deg,#EDE3D4 0%,#E4D5C0 100%);
-  min-height:170px;display:flex;align-items:flex-end;}
-.hphoto{width:150px;flex-shrink:0;display:flex;align-items:flex-end;}
-.hphoto img{width:150px;height:auto;display:block;}
-.htext{padding:20px 18px 22px 12px;align-self:center;}
+  display:flex;flex-direction:column;align-items:center;padding:28px 24px 24px;}
+.hphoto{width:120px;height:120px;border-radius:50%;overflow:hidden;flex-shrink:0;
+  border:3px solid rgba(155,114,207,0.40);margin-bottom:16px;
+  box-shadow:0 4px 20px rgba(107,71,160,0.18);}
+.hphoto img{width:100%;height:100%;object-fit:cover;display:block;mix-blend-mode:multiply;transform:scale(1.6);transform-origin:center 20%;}
+.htext{padding:0;text-align:center;}
 .hname{font-family:'Playfair Display',serif;font-style:italic;font-size:22px;color:#2E1F15;line-height:1.2;}
 .hrole{font-weight:200;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#9B8070;margin-top:3px;}
 .hlink{font-weight:200;font-size:10px;letter-spacing:1px;color:#8B5FBE;margin-top:5px;display:block;}
@@ -227,12 +230,69 @@ body{
   background:linear-gradient(135deg,#C4A0FF 0%,#E8CBAA 100%);
   padding:18px 48px;border-radius:3px;cursor:pointer;
   box-shadow:0 6px 28px rgba(130,70,200,0.45);}
+/* ══ REGISTRATION FORM ══ */
+.form-wrap{max-width:520px;margin:0 auto;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px;}
+.form-grid .full{grid-column:1/-1;}
+.form-group{display:flex;flex-direction:column;gap:5px;}
+.form-group label{font-weight:200;font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:#8B7060;}
+.form-group input,.form-group select{
+  font-family:'DM Sans',sans-serif;font-weight:300;font-size:15px;color:#2E1F15;
+  background:#F5EFE6;border:0.5px solid #C4B8A8;border-radius:3px;
+  padding:12px 14px;outline:none;transition:border-color 0.2s;}
+.form-group input:focus,.form-group select:focus{border-color:#9B72CF;}
+.form-group select{appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239B8070' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+.form-plz-ort{display:grid;grid-template-columns:120px 1fr;gap:14px;}
+.form-check{display:flex;gap:10px;align-items:flex-start;margin-top:6px;}
+.form-check input[type=checkbox]{
+  width:18px;height:18px;flex-shrink:0;margin-top:2px;
+  accent-color:#7B52B4;cursor:pointer;}
+.form-check span{font-weight:300;font-size:14px;color:#4A3828;line-height:1.55;}
+.form-check a{color:#7B52B4;text-decoration:none;}
+
 .foot{background:#1A0F2E;padding:16px 32px;
   display:flex;justify-content:space-between;align-items:center;}
 .foot span{font-weight:200;font-size:10px;letter-spacing:2.5px;
   color:#7B6090;text-transform:uppercase;}
 .foot .logo{font-family:'Playfair Display',serif;font-style:italic;
   font-size:21px;color:#C4A882;}
+
+@media (max-width: 768px) {
+  .hero { height: auto; min-height: 480px; }
+  .hero-content { top: 20px; }
+  .hero-content .title { font-size: 44px; }
+  .title { font-size: 40px; }
+  .eyebrow { font-size: 12px; letter-spacing: 3px; }
+  .sec { padding: 36px 22px; }
+  .s-title { font-size: 26px; }
+  .body { font-size: 16px; }
+  .pill { font-size: 12px; padding: 7px 14px; }
+  .fi p { font-size: 15px; }
+  .fgrid { grid-template-columns: 1fr; }
+  .ic .l { font-size: 11px; }
+  .ic .v { font-size: 20px; }
+  .price-lbl { font-size: 12px; }
+  .price-amt { font-size: 48px; }
+  .price-note { font-size: 12px; }
+  .btn-register { font-size: 13px; }
+  .hrow { flex-direction: column; }
+  .hname { font-size: 20px; }
+  .hrole { font-size: 11px; }
+  .hlink { font-size: 11px; }
+  .ct { font-size: 30px; }
+  .cs { font-size: 13px; }
+  .cta-price { font-size: 52px; }
+  .cta-price small { font-size: 15px; }
+  .btn-cta { font-size: 13px; }
+  .foot { flex-direction: column; gap: 8px; text-align: center; }
+  .foot span { font-size: 11px; }
+  .foot .logo { font-size: 18px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-plz-ort { grid-template-columns: 100px 1fr; }
+}
 </style>
 </head>
 <body>
@@ -703,7 +763,7 @@ body{
         <line x1="30" y1="19" x2="36" y2="19" stroke="#6B47A0" stroke-width="0.8"/>
       </svg>
     </div>
-    <button class="btn-register">Jetzt anmelden &nbsp;→</button>
+    <a href="#anmeldung" class="btn-register">Jetzt anmelden &nbsp;→</a>
   </div>
 
   <div class="sec alt">
@@ -711,7 +771,7 @@ body{
     <div class="s-hr"></div>
     <div class="hrow">
       <div class="hcard">
-        <div class="hphoto"><img src="image_01.png" alt="Kathi"></div>
+        <div class="hphoto"><img src="kathi.png" alt="Kathi"></div>
         <div class="htext">
           <div class="hname">Kathi von Soulmap</div>
           <div class="hrole">Astrologin &amp; Gründerin von Soulmap</div>
@@ -722,7 +782,7 @@ body{
         </div>
       </div>
       <div class="hcard">
-        <div class="hphoto"><img src="image_02.png" alt="Tanja"></div>
+        <div class="hphoto"><img src="tanja.png" alt="Tanja"></div>
         <div class="htext">
           <div class="hname">Tanja Frewein</div>
           <div class="hrole">Holistic Human Design &amp; Breathwork Mentorin</div>
@@ -747,7 +807,82 @@ body{
     <div class="ct">Zwei Systeme.<br>Ein vollständiges Bild von dir.</div>
     <div class="cs">Astrologie &amp; Human Design · Eine Symbiose.</div>
     <div class="cta-price">€ 79<small>EUR</small></div>
-    <div class="btn-cta">Jetzt anmelden &nbsp;→</div>
+    <a href="#anmeldung" class="btn-cta">Jetzt anmelden &nbsp;→</a>
+  </div>
+
+  <div class="sec" id="anmeldung">
+    <div class="s-title" style="text-align:center;">Jetzt <em>anmelden</em></div>
+    <div class="s-hr" style="margin:7px auto 13px;"></div>
+
+    <div class="form-wrap">
+      <!-- Erfolgs-Meldung (nach Versand) -->
+      <div id="form-success" style="display:none;">
+        <div style="
+          background:linear-gradient(135deg,rgba(130,70,200,0.08) 0%,rgba(196,168,130,0.06) 100%);
+          border:0.5px solid #9B72CF;border-radius:8px;padding:32px 28px;
+        ">
+          <div style="font-family:'Playfair Display',serif;font-size:26px;font-style:italic;
+            color:#6B47A0;margin-bottom:12px;">Danke für deine Anmeldung!</div>
+          <p class="body" style="margin-bottom:10px;">
+            Wir freuen uns sehr, dich beim Workshop <strong>Cosmic Design Elements</strong> am 30. Juni 2026 begrüßen zu dürfen.
+          </p>
+          <p class="body" style="margin-bottom:10px;">
+            Du erhältst in Kürze eine Bestätigungsmail mit deiner Rechnung über <strong>€ 79,–</strong>. Bitte begleiche diese zeitnah – erst nach Zahlungseingang senden wir dir den persönlichen Webinar-Link zu.
+          </p>
+          <p class="body" style="color:#8B7060;">
+            Bei Fragen erreichst du uns jederzeit unter <a href="mailto:info@soulmap.at" style="color:#7B52B4;text-decoration:none;">info@soulmap.at</a>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Anmeldeformular -->
+      <div id="form-wrap">
+        <p class="body" style="margin-bottom:20px;">Sichere dir deinen Platz – fülle einfach das Formular aus.</p>
+        <form id="registration-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="f-name">Name</label>
+              <input type="text" id="f-name" name="name" placeholder="Dein vollständiger Name" required>
+            </div>
+            <div class="form-group">
+              <label for="f-email">E-Mail</label>
+              <input type="email" id="f-email" name="email" placeholder="deine@email.com" required>
+            </div>
+            <div class="form-group full">
+              <label for="f-street">Straße &amp; Hausnummer</label>
+              <input type="text" id="f-street" name="street" placeholder="Musterstraße 1" required>
+            </div>
+            <div class="form-group full">
+              <div class="form-plz-ort">
+                <div class="form-group">
+                  <label for="f-plz">PLZ</label>
+                  <input type="text" id="f-plz" name="plz" placeholder="1010" required>
+                </div>
+                <div class="form-group">
+                  <label for="f-city">Ort</label>
+                  <input type="text" id="f-city" name="city" placeholder="Wien" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-group full">
+              <label for="f-country">Land</label>
+              <select id="f-country" name="country" required>
+                <option value="" disabled selected>Bitte wählen …</option>
+                <option value="AT">Österreich</option>
+                <option value="DE">Deutschland</option>
+                <option value="CH">Schweiz</option>
+                <option value="other">Anderes Land</option>
+              </select>
+            </div>
+            <div class="form-check full">
+              <input type="checkbox" id="f-confirm" name="confirm" required>
+              <span><label for="f-confirm">Ich bestätige, dass ich am Workshop <strong>Cosmic Design Elements</strong> am 30. Juni 2026 teilnehmen möchte, und stimme der Verarbeitung meiner Daten gemäß der <a href="#">Datenschutzerklärung</a> zu.</label></span>
+            </div>
+          </div>
+          <button type="submit" id="submit-btn" class="btn-register" style="margin-top:22px;">Anmeldung absenden &nbsp;→</button>
+        </form>
+      </div>
+    </div>
   </div>
 
   <div class="foot">
@@ -756,5 +891,43 @@ body{
     <span>soulmap.at</span>
   </div>
 </div>
+<script>
+(function () {
+  var form = document.getElementById("registration-form");
+  if (!form) return;
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    var btn = document.getElementById("submit-btn");
+    btn.textContent = "Wird gesendet …";
+    btn.disabled = true;
+
+    try {
+      var res = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name:    form.elements["name"].value,
+          email:   form.elements["email"].value,
+          street:  form.elements["street"].value,
+          plz:     form.elements["plz"].value,
+          city:    form.elements["city"].value,
+          country: form.elements["country"].value,
+        }),
+      });
+
+      if (!res.ok) throw new Error();
+
+      document.getElementById("form-wrap").style.display    = "none";
+      document.getElementById("form-success").style.display = "block";
+    } catch {
+      btn.textContent = "Anmeldung absenden →";
+      btn.disabled = false;
+      alert("Es ist ein Fehler aufgetreten. Bitte versuche es erneut.");
+    }
+  });
+})();
+</script>
 </body>
 </html>
