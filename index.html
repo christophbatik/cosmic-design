@@ -879,6 +879,18 @@ body{
                 <option value="other">Anderes Land</option>
               </select>
             </div>
+            <div class="form-group">
+              <label for="f-bday">Geburtstag</label>
+              <input type="date" id="f-bday" name="bday" required>
+            </div>
+            <div class="form-group">
+              <label for="f-btime">Geburtszeit</label>
+              <input type="time" id="f-btime" name="btime" required>
+            </div>
+            <div class="form-group full">
+              <label for="f-bplace">Geburtsort</label>
+              <input type="text" id="f-bplace" name="bplace" placeholder="z. B. Wien, Österreich" required>
+            </div>
             <div class="form-check full">
               <input type="checkbox" id="f-confirm" name="confirm" required>
               <span><label for="f-confirm">Ich bestätige, dass ich am Workshop <strong>Cosmic Design Elements</strong> am 30. Juni 2026 teilnehmen möchte, und stimme der Verarbeitung meiner Daten gemäß der <a href="https://www.soulmap.at/datenschutz" target="_blank">Datenschutzerklärung</a> zu.</label></span>
@@ -923,6 +935,9 @@ body{
           plz:     form.elements["plz"].value,
           city:    form.elements["city"].value,
           country: form.elements["country"].value,
+            bday:    form.elements["bday"].value,
+            btime:   form.elements["btime"].value,
+            bplace:  form.elements["bplace"].value,
         }),
       });
 

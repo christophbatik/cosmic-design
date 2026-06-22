@@ -11,7 +11,7 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { name, email, street, plz, city, country } = req.body ?? {};
+  const { name, email, street, plz, city, country, bday, btime, bplace } = req.body ?? {};
 
   if (!name || !email) {
     return res.status(400).json({ error: "Name und E-Mail sind Pflichtfelder." });
@@ -34,6 +34,9 @@ module.exports = async function handler(req, res) {
             <tr><td style="padding:8px 0;border-bottom:1px solid #EEE6DA;color:#8B7060;width:130px;">Name</td><td style="padding:8px 0;border-bottom:1px solid #EEE6DA;">${name}</td></tr>
             <tr><td style="padding:8px 0;border-bottom:1px solid #EEE6DA;color:#8B7060;">E-Mail</td><td style="padding:8px 0;border-bottom:1px solid #EEE6DA;"><a href="mailto:${email}" style="color:#7B52B4;">${email}</a></td></tr>
             <tr><td style="padding:8px 0;border-bottom:1px solid #EEE6DA;color:#8B7060;">Adresse</td><td style="padding:8px 0;border-bottom:1px solid #EEE6DA;">${street}, ${plz} ${city}, ${countryLabel}</td></tr>
+            <tr><td style="padding:8px 0;border-bottom:1px solid #EEE6DA;color:#8B7060;">Geburtstag</td><td style="padding:8px 0;border-bottom:1px solid #EEE6DA;">${bday}</td></tr>
+            <tr><td style="padding:8px 0;border-bottom:1px solid #EEE6DA;color:#8B7060;">Geburtszeit</td><td style="padding:8px 0;border-bottom:1px solid #EEE6DA;">${btime} Uhr</td></tr>
+            <tr><td style="padding:8px 0;border-bottom:1px solid #EEE6DA;color:#8B7060;">Geburtsort</td><td style="padding:8px 0;border-bottom:1px solid #EEE6DA;">${bplace}</td></tr>
           </table>
         </div>
       `,
