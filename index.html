@@ -135,9 +135,11 @@ body{
 }
 .hero-photos .ph.kathi > img{height:590px;margin-right:-45px;clip-path:inset(0 0 60px 0);}
 .hero-photos .ph.tanja > img{height:570px;margin-left:-45px;}
-.ph-follow{display:block;position:relative;z-index:10;margin-top:-10px;}
-.ph-follow img{width:80px;height:auto;opacity:0.88;transition:opacity 0.2s;}
-.ph-follow:hover img{opacity:1;}
+.follow-strip{position:absolute;bottom:22px;left:0;right:0;z-index:9;
+  display:flex;justify-content:space-between;padding:0 80px;}
+.follow-strip a{display:block;opacity:0.88;transition:opacity 0.2s;}
+.follow-strip a:hover{opacity:1;}
+.follow-strip img{width:140px;height:auto;display:block;}
 .hero-blend-bot{
   position:absolute;bottom:0;left:0;right:0;height:140px;z-index:5;
   background:linear-gradient(to top,
@@ -271,7 +273,7 @@ body{
   .hero-photos { position: relative; bottom: auto; left: auto; right: auto; }
   .hero-photos .ph.kathi > img { height: 240px; margin-right: -18px; clip-path: inset(0 0 30px 0); }
   .hero-photos .ph.tanja > img { height: 220px; margin-left: -18px; }
-  .ph-follow img { width: 60px; }
+  .follow-strip { position:relative; bottom:auto; gap:60px; padding:12px 0; }
   .hero-blend-bot { height: 60px; }
   .title { font-size: 40px; }
   .eyebrow { font-size: 12px; letter-spacing: 3px; }
@@ -676,16 +678,14 @@ body{
     <!-- END ELEMENT ZEICHEN -->
 
     <div class="hero-photos">
-      <div class="ph kathi">
-        <img src="image_01.png" alt="Kathi">
-        <a href="https://www.instagram.com/kathi.huber.astrologie" target="_blank" class="ph-follow"><img src="follow-me.png" alt="Follow on Instagram"></a>
-      </div>
-      <div class="ph tanja">
-        <img src="image_02.png" alt="Tanja">
-        <a href="https://www.instagram.com/tanja.frewein" target="_blank" class="ph-follow"><img src="follow-me.png" alt="Follow on Instagram"></a>
-      </div>
+      <div class="ph kathi"><img src="image_01.png" alt="Kathi"></div>
+      <div class="ph tanja"><img src="image_02.png" alt="Tanja"></div>
     </div>
     <div class="hero-blend-bot"></div>
+    <div class="follow-strip">
+      <a href="https://www.instagram.com/kathi.huber.astrologie" target="_blank"><img src="follow-me.png" alt="Kathi auf Instagram folgen"></a>
+      <a href="https://www.instagram.com/tanja.frewein" target="_blank"><img src="follow-me.png" alt="Tanja auf Instagram folgen"></a>
+    </div>
   </div>
 
   <div class="sec alt">
